@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Warm-Up Routine</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        h2 {
+            color: #555;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin: 10px 0;
+        }
+
+        .btn-fixed-bottom {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container text-center">
+        <script>
+            var diceInt;
+            var oldDiceInt;
+            const exerciseOptions = [
+                "30 Arm Circles",
+                "30 Sec Planks",
+                "8 Burpees",
+                "10 Mountain Climbers",
+                "15 High Knees",
+                "10 Sumo Squats",
+                "Run for 2 Min",
+                "12 Incline Push Ups",
+                "10 Backward Lunges",
+                "15 Crunches",
+                "10 Leg Raises",
+                "Wild Card (roller's choice!)"
+            ];
+
+            function getExercise() {
+                diceInt = Math.floor(Math.random() * 12) + 1;
+                if (diceInt == oldDiceInt) {
+                    diceInt = Math.floor(Math.random() * 12) + 1;
+                } else if (diceInt == 12) {
+                    diceInt = Math.floor(Math.random() * 12) + 1;
+                }
+                document.getElementById("exercise").innerHTML = exerciseOptions[diceInt - 1];
+                oldDiceInt = diceInt;
+            }
+        </script>
+
+        <h1>Exercise Dice</h1>
+        
+        <h1 id="exercise" class="m-5" aria-live="polite">Roll the dice to get an exercise!</h1>
+        
+        <button id="getExercise" class="btn btn-primary btn-fixed-bottom text-nowrap" onclick="getExercise()">Roll the dice</button>
+
+        <h2>Warm-Up Routine (5-10 minutes)</h2>
+
+        <h2>1. Dynamic Stretching (3-5 minutes)</h2>
+        <ul>
+            <li><strong>Arm Circles:</strong> 30 seconds forward, 30 seconds backward.</li>
+            <li><strong>Leg Swings:</strong> 30 seconds per leg, swinging your leg forward and backward.</li>
+            <li><strong>Torso Twists:</strong> Stand with feet shoulder-width apart and twist your torso side to side for 1 minute.</li>
+            <li><strong>Hip Circles:</strong> 30 seconds in each direction.</li>
+        </ul>
+
+        <h2>2. Light Cardio (2-5 minutes)</h2>
+        <ul>
+            <li><strong>Jog in Place:</strong> 1-2 minutes at a light pace.</li>
+            <li><strong>High Knees:</strong> 30 seconds, bringing your knees up towards your chest.</li>
+            <li><strong>Butt Kicks:</strong> 30 seconds, kicking your heels towards your glutes.</li>
+        </ul>
+
+        <h2>3. Movement Preparation (1-2 minutes)</h2>
+        <ul>
+            <li><strong>Bodyweight Squats:</strong> 10-15 reps to activate your legs.</li>
+            <li><strong>Arm Crosses:</strong> 10-15 reps, crossing your arms in front of your chest and then opening them wide.</li>
+            <li><strong>Lunges with a Twist:</strong> 5-10 reps per side, stepping forward into a lunge and twisting your torso towards the front leg.</li>
+        </ul>
+
+        <h2>Tips:</h2>
+        <ul>
+            <li>Ensure you perform each movement in a controlled manner.</li>
+            <li>Focus on your breathing and gradually increase your heart rate.</li>
+            <li>Adjust the duration and intensity of the warm-up based on your fitness level and the workout ahead.</li>
+        </ul>
+    </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>
