@@ -22,6 +22,7 @@
             var diceInt;
             var oldDiceInt;
             var exerciseOptions = [];
+            var dataLength;
 
             document.addEventListener("DOMContentLoaded", function() {
                 if (localStorage.getItem('darkMode') === 'enabled') {
@@ -34,14 +35,13 @@
                 .then(response => response.json())
                 .then(data => {
                     exerciseOptions = data;
+                    dataLength = exerciseOptions.length;
                 });
 
             function getExercise() {
-                diceInt = Math.floor(Math.random() * 12) + 1;
+                diceInt = Math.floor(Math.random() * dataLength) + 1;
                 if (diceInt == oldDiceInt) {
-                    diceInt = Math.floor(Math.random() * 12) + 1;
-                } else if (diceInt == 12) {
-                    diceInt = Math.floor(Math.random() * 12) + 1;
+                    diceInt = Math.floor(Math.random() * dataLength) + 1;
                 }
                 var exercise = exerciseOptions[diceInt - 1];
                 if (exercise) {

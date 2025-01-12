@@ -48,5 +48,45 @@
         "name": "Wild Card (roller's choice!)",
         "warmUp": "Choose any warm-up exercise that you enjoy, such as jumping jacks or dynamic stretches, to get your body ready and energized for the workout.",
         "timer": null
+    },
+    {
+        "name": "Transverse Abdominal Breathing (TVA Breathing) + Core Connection",
+        "warmUp": "Focus on big inhales to expand your belly and exhales to pull your core in. This helps activate the deep abdominal muscles.",
+        "timer": "0:30"
+    },
+    {
+        "name": "Lying Heel Tap + Leg Lift",
+        "warmUp": "Slide one heel out while keeping the core engaged, then lift it back up. Alternate sides while maintaining a flat core.",
+        "timer": "0:30"
+    },
+    {
+        "name": "Lying Bent Knee Pulls",
+        "warmUp": "Hug one knee to your chest while keeping the opposite leg on the ground or hovering. Focus on avoiding any low back popping off the mat.",
+        "timer": "0:30"
+    },
+    {
+        "name": "Elevated Bent Knee March",
+        "warmUp": "In a bent knee position, alternate tapping your toes down while keeping your core tight and rib cage in.",
+        "timer": "0:30"
+    },
+    {
+        "name": "Elevated Leg Extension + Leg Drop",
+        "warmUp": "Kick one leg out and lower it, then pull it back in. Keep the other knee close to your chest to control the intensity.",
+        "timer": "0:30"
+    },
+    {
+        "name": "Elevated Leg Extension + 2 Circles",
+        "warmUp": "Kick the leg out and draw two circles with your toe. This engages the core and challenges stability.",
+        "timer": "0:30"
+    },
+    {
+        "name": "Elevated Bent Knee V-Taps",
+        "warmUp": "Open and close your legs in a V shape while focusing on pulling the pelvic floor and inner thighs together.",
+        "timer": "0:30"
+    },
+    {
+        "name": "Elevated First Position Kick Outs",
+        "warmUp": "Kick your legs out while keeping your heels together and toes pointed out. This helps engage the pelvic floor and core.",
+        "timer": "0:30"
     }
 ]
