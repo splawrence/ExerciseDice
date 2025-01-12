@@ -4,105 +4,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Warm-Up Routine</title>
+    <title>Exercise Routine</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            margin: 20px;
-            background-color: #E6E6FA;
-            color: #333;
-        }
-
-        .dark-mode {
-            background-color: #333;
-            color: #E6E6FA;
-        }
-
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        li {
-            margin: 10px 0;
-        }
-
-        .btn-fixed-bottom {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        .toggle-switch {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-        }
-    </style>
+    <link href="./style.css" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="./favicon.ico">
 </head>
 
 <body>
     <div class="container text-center">
         <div class="toggle-switch">
             <label for="darkModeToggle">Dark Mode</label>
-            <input type="checkbox" id="darkModeToggle" onclick="toggleDarkMode()">
+            <input type="checkbox" id="darkModeToggle" onclick="toggleDarkMode()" onKeyPress="toggleDarkMode()">
         </div>
         <script>
             var diceInt;
             var oldDiceInt;
-            const exerciseOptions = [
-                {
-                    name: "30 Arm Circles",
-                    warmUp: "Stand tall and extend your arms out to the sides. Make small circles with your arms, gradually increasing the size. Perform for 30 seconds to effectively warm up your shoulders and arms."
-                },
-                {
-                    name: "30 Sec Planks",
-                    warmUp: "Before starting, engage your core with gentle dynamic stretches. Focus on your back and abdomen by performing torso twists and side bends to prepare for the plank position."
-                },
-                {
-                    name: "8 Burpees",
-                    warmUp: "Begin with light cardio, such as jogging in place or high knees, for 1-2 minutes to elevate your heart rate and prepare your body for the intensity of burpees."
-                },
-                {
-                    name: "10 Mountain Climbers",
-                    warmUp: "To warm up your legs and hips, perform leg swings forward and backward, followed by dynamic stretches like lunges to enhance flexibility and mobility."
-                },
-                {
-                    name: "15 High Knees",
-                    warmUp: "Incorporate high knees into your warm-up routine to activate your legs. Focus on driving your knees up towards your chest while maintaining a brisk pace."
-                },
-                {
-                    name: "10 Sumo Squats",
-                    warmUp: "Loosen up your hips and legs by performing gentle hip circles and side lunges. This will help prepare your lower body for the sumo squat movement."
-                },
-                {
-                    name: "Run for 2 Min",
-                    warmUp: "Start with a light jog, gradually increasing your pace. This will help to gradually elevate your heart rate and warm up your entire body."
-                },
-                {
-                    name: "12 Incline Push Ups",
-                    warmUp: "Warm up your arms and chest by performing dynamic stretches such as arm swings and shoulder rolls. This will enhance blood flow to the upper body."
-                },
-                {
-                    name: "10 Backward Lunges",
-                    warmUp: "Prepare your legs by performing leg swings and forward lunges. This will help activate your leg muscles and improve your balance."
-                },
-                {
-                    name: "15 Crunches",
-                    warmUp: "Engage your core with gentle torso twists and side bends to warm up your abdomen. This will help activate the muscles you'll use during crunches."
-                },
-                {
-                    name: "10 Leg Raises",
-                    warmUp: "Warm up your lower abs with light stretches for your hips, such as seated forward bends and gentle hip flexor stretches."
-                },
-                {
-                    name: "Wild Card (roller's choice!)",
-                    warmUp: "Choose any warm-up exercise that you enjoy, such as jumping jacks or dynamic stretches, to get your body ready and energized for the workout."
+            var exerciseOptions = [];
+
+            document.addEventListener("DOMContentLoaded", function() {
+                if (localStorage.getItem('darkMode') === 'enabled') {
+                    document.body.classList.add('dark-mode');
+                    document.getElementById('darkModeToggle').checked = true;
                 }
-            ];
+            });
+
+            fetch('./data.json')
+                .then(response => response.json())
+                .then(data => {
+                    exerciseOptions = data;
+                });
 
             function getExercise() {
                 diceInt = Math.floor(Math.random() * 12) + 1;
@@ -111,26 +41,62 @@
                 } else if (diceInt == 12) {
                     diceInt = Math.floor(Math.random() * 12) + 1;
                 }
-                document.getElementById("name").innerHTML = exerciseOptions[diceInt - 1].name;
-                document.getElementById("warmUp").innerHTML = exerciseOptions[diceInt - 1].warmUp;
-
+                var exercise = exerciseOptions[diceInt - 1];
+                if (exercise) {
+                    document.getElementById("name").innerHTML = exercise.name;
+                    document.getElementById("warmUp").innerHTML = exercise.warmUp;
+                    if (exercise.timer != null) {
+                        document.getElementById("txtTimer").innerHTML = exercise.timer;
+                        document.getElementById("timer").style.display = "block";
+                    } else {
+                        document.getElementById("timer").style.display = "none";
+                    }
+                }
                 oldDiceInt = diceInt;
             }
 
             function toggleDarkMode() {
                 document.body.classList.toggle('dark-mode');
+                if (document.body.classList.contains('dark-mode')) {
+                    localStorage.setItem('darkMode', 'enabled');
+                } else {
+                    localStorage.setItem('darkMode', 'disabled');
+                }
+            }
+
+            function startTimer() {
+                var time = exerciseOptions[diceInt - 1].timer;
+                var timeParts = time.split(':');
+                var totalSeconds = parseInt(timeParts[0]) * 60 + parseInt(timeParts[1]);
+                var display = document.getElementById("txtTimer");
+                var interval = setInterval(function () {
+                    var minutes = Math.floor(totalSeconds / 60);
+                    var seconds = totalSeconds % 60;
+                    seconds = seconds < 10 ? '0' + seconds : seconds;
+                    display.innerHTML = minutes + ':' + seconds;
+                    if (--totalSeconds < 0) {
+                        totalSeconds = 0;
+                        clearInterval(interval);
+                    }
+                }, 1000);
             }
         </script>
 
-        <h1>Exercise Dice</h1>
+        <h1>Exercise Die</h1>
 
-        <h1 id="name" class="m-5" aria-live="polite">Roll the dice to get an exercise!</h1>
+        <h1 id="name" class="m-5" aria-live="polite">Roll the die to get an exercise!</h1>
         <p id="warmUp" class="m-5" aria-live="polite"></p>
 
         <button id="getExercise" class="btn btn-primary btn-lg btn-fixed-bottom text-nowrap"
             onclick="getExercise()">Roll the
-            dice</button>
+            die</button>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 
+
+        <div id="timer">
+            <h1 id="txtTimer">0:00</h1>
+            <button id="btnStart" class="btn btn-primary btn-lg  text-nowrap" onclick="startTimer()">Start</button>
+        </div>
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
