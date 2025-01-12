@@ -11,14 +11,13 @@
             font-family: Arial, sans-serif;
             line-height: 1.6;
             margin: 20px;
-        }
-
-        h1 {
+            background-color: #E6E6FA;
             color: #333;
         }
 
-        h2 {
-            color: #555;
+        .dark-mode {
+            background-color: #333;
+            color: #E6E6FA;
         }
 
         ul {
@@ -36,65 +35,74 @@
             left: 50%;
             transform: translateX(-50%);
         }
+
+        .toggle-switch {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+        }
     </style>
 </head>
 
 <body>
     <div class="container text-center">
+        <div class="toggle-switch">
+            <label for="darkModeToggle">Dark Mode</label>
+            <input type="checkbox" id="darkModeToggle" onclick="toggleDarkMode()">
+        </div>
         <script>
             var diceInt;
             var oldDiceInt;
             const exerciseOptions = [
                 {
                     name: "30 Arm Circles",
-                    warmUp: "Perform dynamic arm circles to warm up your shoulders and arms."
+                    warmUp: "Stand tall and extend your arms out to the sides. Make small circles with your arms, gradually increasing the size. Perform for 30 seconds to effectively warm up your shoulders and arms."
                 },
                 {
                     name: "30 Sec Planks",
-                    warmUp: "Engage your core with some light dynamic stretches for your back and abdomen."
+                    warmUp: "Before starting, engage your core with gentle dynamic stretches. Focus on your back and abdomen by performing torso twists and side bends to prepare for the plank position."
                 },
                 {
                     name: "8 Burpees",
-                    warmUp: "Do some light cardio, like jogging in place, to get your heart rate up."
+                    warmUp: "Begin with light cardio, such as jogging in place or high knees, for 1-2 minutes to elevate your heart rate and prepare your body for the intensity of burpees."
                 },
                 {
                     name: "10 Mountain Climbers",
-                    warmUp: "Warm up your legs and hips with some leg swings and dynamic stretches."
+                    warmUp: "To warm up your legs and hips, perform leg swings forward and backward, followed by dynamic stretches like lunges to enhance flexibility and mobility."
                 },
                 {
                     name: "15 High Knees",
-                    warmUp: "Perform high knees as part of your warm-up to activate your legs."
+                    warmUp: "Incorporate high knees into your warm-up routine to activate your legs. Focus on driving your knees up towards your chest while maintaining a brisk pace."
                 },
                 {
                     name: "10 Sumo Squats",
-                    warmUp: "Loosen up your hips and legs with some gentle hip circles."
+                    warmUp: "Loosen up your hips and legs by performing gentle hip circles and side lunges. This will help prepare your lower body for the sumo squat movement."
                 },
                 {
                     name: "Run for 2 Min",
-                    warmUp: "Start with a light jog to gradually increase your heart rate."
+                    warmUp: "Start with a light jog, gradually increasing your pace. This will help to gradually elevate your heart rate and warm up your entire body."
                 },
                 {
                     name: "12 Incline Push Ups",
-                    warmUp: "Warm up your arms and chest with some dynamic stretches."
+                    warmUp: "Warm up your arms and chest by performing dynamic stretches such as arm swings and shoulder rolls. This will enhance blood flow to the upper body."
                 },
                 {
                     name: "10 Backward Lunges",
-                    warmUp: "Perform some leg swings and lunges to prepare your legs."
+                    warmUp: "Prepare your legs by performing leg swings and forward lunges. This will help activate your leg muscles and improve your balance."
                 },
                 {
                     name: "15 Crunches",
-                    warmUp: "Engage your core with some gentle torso twists to warm up your abdomen."
+                    warmUp: "Engage your core with gentle torso twists and side bends to warm up your abdomen. This will help activate the muscles you'll use during crunches."
                 },
                 {
                     name: "10 Leg Raises",
-                    warmUp: "Warm up your lower abs with some light stretches for your hips."
+                    warmUp: "Warm up your lower abs with light stretches for your hips, such as seated forward bends and gentle hip flexor stretches."
                 },
                 {
                     name: "Wild Card (roller's choice!)",
-                    warmUp: "Choose any warm-up exercise that you enjoy to get your body ready."
+                    warmUp: "Choose any warm-up exercise that you enjoy, such as jumping jacks or dynamic stretches, to get your body ready and energized for the workout."
                 }
             ];
-
 
             function getExercise() {
                 diceInt = Math.floor(Math.random() * 12) + 1;
@@ -108,6 +116,10 @@
 
                 oldDiceInt = diceInt;
             }
+
+            function toggleDarkMode() {
+                document.body.classList.toggle('dark-mode');
+            }
         </script>
 
         <h1>Exercise Dice</h1>
@@ -115,7 +127,8 @@
         <h1 id="name" class="m-5" aria-live="polite">Roll the dice to get an exercise!</h1>
         <p id="warmUp" class="m-5" aria-live="polite"></p>
 
-        <button id="getExercise" class="btn btn-primary btn-lg btn-fixed-bottom text-nowrap" onclick="getExercise()">Roll the
+        <button id="getExercise" class="btn btn-primary btn-lg btn-fixed-bottom text-nowrap"
+            onclick="getExercise()">Roll the
             dice</button>
 
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
