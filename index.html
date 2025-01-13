@@ -14,31 +14,67 @@
     <div class="container text-center">
         <div class="toggle-switch">
             <label class="switch">
-                <input type="checkbox" id="darkModeToggle" onclick="toggleDarkMode()" onKeyPress="toggleDarkMode()">
-                <span class="slider"></span>
+            <input type="checkbox" id="darkModeToggle" onclick="toggleDarkMode()" onKeyPress="toggleDarkMode()">
+            <span class="slider">
+                <span class="slider-icon moon">🌙</span>
+                <span class="slider-icon sun">☀️</span>
+            </span>
             </label>
         </div>
+
+
+        <h1>Exercise Die</h1>
+
+        <h1 id="name" class="m-5" aria-live="polite">Roll the die to get an exercise!</h1>
+        <p id="warmUp" class="m-5" aria-live="polite"></p>
+
+        <button id="getExercise" class="btn btn-primary btn-lg btn-fixed-bottom text-nowrap"
+            onclick="getExercise()">Roll the die</button>
+
+        <select id="exerciseType" class="form-control form-control-lg mt-5">
+            <option value="all">All</option>
+            <option value="warmUp">Warm Up</option>
+            <option value="core">Core</option>
+            <option value="upperBody">Upper Body</option>
+            <option value="lowerBody">Lower Body</option>
+            <option value="cardio">Cardio</option>
+        </select>
+        
+        <div id="timer">
+            <h1 id="txtTimer">0:00</h1>
+            <button id="btnStart" class="btn btn-primary btn-lg text-nowrap" onclick="startTimer()">Start</button>
+        </div>
+
         <script>
             var diceInt;
             var oldDiceInt;
             var exerciseOptions = [];
             var dataLength;
 
-            document.addEventListener("DOMContentLoaded", function() {
+            document.addEventListener("DOMContentLoaded", function () {
                 if (localStorage.getItem('darkMode') === 'enabled') {
                     document.body.classList.add('dark-mode');
                     document.getElementById('darkModeToggle').checked = true;
                 }
             });
 
-            fetch('./data.json')
-                .then(response => response.json())
-                .then(data => {
-                    exerciseOptions = data;
-                    dataLength = exerciseOptions.length;
-                });
+            function getExercises() {
+                fetch('./data.json')
+                    .then(response => response.json())
+                    .then(data => {
+                        exerciseOptions = data;
+                    });
 
+            };
+
+            getExercises();
             function getExercise() {
+                getExercises();
+                exerciseOptions = exerciseOptions.filter(function (exercise) {
+                    return exercise.type === document.getElementById("exerciseType").value || document.getElementById("exerciseType").value != null;
+                });
+                dataLength = exerciseOptions.length;
+
                 diceInt = Math.floor(Math.random() * dataLength) + 1;
                 if (diceInt == oldDiceInt) {
                     diceInt = Math.floor(Math.random() * dataLength) + 1;
@@ -47,6 +83,7 @@
                 if (exercise) {
                     document.getElementById("name").innerHTML = exercise.name;
                     document.getElementById("warmUp").innerHTML = exercise.warmUp;
+
                     if (exercise.timer != null) {
                         document.getElementById("txtTimer").innerHTML = exercise.timer;
                         document.getElementById("timer").style.display = "block";
@@ -71,34 +108,26 @@
                 var timeParts = time.split(':');
                 var totalSeconds = parseInt(timeParts[0]) * 60 + parseInt(timeParts[1]);
                 var display = document.getElementById("txtTimer");
+
+                // Display the initial time immediately
+                var minutes = Math.floor(totalSeconds / 60);
+                var seconds = totalSeconds % 60;
+                seconds = seconds < 10 ? '0' + seconds : seconds;
+                display.innerHTML = minutes + ':' + seconds;
+
                 var interval = setInterval(function () {
-                    var minutes = Math.floor(totalSeconds / 60);
-                    var seconds = totalSeconds % 60;
-                    seconds = seconds < 10 ? '0' + seconds : seconds;
-                    display.innerHTML = minutes + ':' + seconds;
                     if (--totalSeconds < 0) {
                         totalSeconds = 0;
                         clearInterval(interval);
+                    } else {
+                        minutes = Math.floor(totalSeconds / 60);
+                        seconds = totalSeconds % 60;
+                        seconds = seconds < 10 ? '0' + seconds : seconds;
+                        display.innerHTML = minutes + ':' + seconds;
                     }
                 }, 1000);
             }
         </script>
-
-        <h1>Exercise Die</h1>
-
-        <h1 id="name" class="m-5" aria-live="polite">Roll the die to get an exercise!</h1>
-        <p id="warmUp" class="m-5" aria-live="polite"></p>
-
-        <button id="getExercise" class="btn btn-primary btn-lg btn-fixed-bottom text-nowrap"
-            onclick="getExercise()">Roll the
-            die</button>
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-
-
-        <div id="timer">
-            <h1 id="txtTimer">0:00</h1>
-            <button id="btnStart" class="btn btn-primary btn-lg  text-nowrap" onclick="startTimer()">Start</button>
-        </div>
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
