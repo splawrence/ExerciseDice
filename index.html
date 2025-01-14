@@ -24,10 +24,10 @@
                     <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-
+                    <!-- Add more nav items here if needed -->
                 </li>
             </ul>
-            <div class="toggle-switch form-inline ">
+            <div class="toggle-switch form-inline">
                 <label class="switch">
                     <input type="checkbox" id="darkModeToggle" onclick="toggleDarkMode()" onKeyPress="toggleDarkMode()">
                     <span class="slider">
@@ -40,6 +40,7 @@
     </nav>
     <div class="container text-center">
         <select id="exerciseType" class="form-control m-2" multiple>
+            <!-- Options will be populated dynamically -->
         </select>
         <h1 id="name" class="m-2" aria-live="polite">Roll the die to get an exercise!</h1>
         <p id="warmUp" class="m-2" aria-live="polite"></p>
@@ -47,16 +48,12 @@
         <button id="getExercise" class="btn btn-primary btn-lg btn-fixed-bottom text-nowrap"
             onclick="getExercise()">Roll the die</button>
 
-
-
         <div id="timer">
             <h1 id="txtTimer">0:00</h1>
             <button id="btnStart" class="btn btn-primary btn-lg text-nowrap" onclick="startTimer()">Start</button>
         </div>
 
-        <script src="./static.js">
-
-        </script>
+        <script src="./static.js"></script>
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

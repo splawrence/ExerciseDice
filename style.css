@@ -1,13 +1,13 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     line-height: 1.6;
-    background-color: #E6E6FA;
-    color: #333;
+    background-color: #f8f9fa;
+    color: #212529;
 }
 
 .dark-mode {
-    background-color: #333;
-    color: #E6E6FA;
+    background-color: #212529;
+    color: #f8f9fa;
 }
 
 ul {
@@ -17,6 +17,20 @@ ul {
 
 li {
     margin: 10px 0;
+}
+
+.navbar {
+    margin-bottom: 20px;
+}
+
+.container {
+    max-width: 800px;
+    margin: auto;
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
 }
 
 .btn-fixed-bottom {
@@ -34,6 +48,7 @@ li {
 
 #timer {
     display: none;
+    margin-top: 20px;
 }
 
 .switch {
@@ -74,7 +89,7 @@ li {
 }
 
 input:checked + .slider {
-    background-color: #2196F3;
+    background-color: #007bff;
 }
 
 input:checked + .slider:before {
